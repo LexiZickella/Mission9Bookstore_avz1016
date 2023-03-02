@@ -1,0 +1,46 @@
+﻿@{
+}
+
+@* the View from the home controller *@
+@model BooksViewModel
+
+<h4>The Book Store</h4>
+
+@* accessing the Books from the View in the HomeController *@
+<table class="table table-bordered table-striped">
+    <thead class="font-weight-bold">
+        <tr>
+            <td>Title</td>
+            <td>Author</td>
+            <td>Classification</td>
+            <td>Category</td>
+            <td>Price</td>
+            <td>Page Count</td>
+            <td>Publisher</td>
+            <td>ISBN</td>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (Book b in Model.Books)
+        {
+            <tr>
+                <td>@b.Title</td>
+                <td>@b.Author</td>
+                <td>@b.Classification</td>
+                <td>@b.Category</td>
+                <td>$@b.Price</td>
+                <td>@b.PageCount</td>
+                <td>@b.Publisher</td>
+                <td>@b.Isbn</td>
+                
+
+            </tr>
+        }
+    </tbody>
+</table>
+@* passing pageinfo part of the View from the HomeController in the tag-helper section to build a pagination for me *@
+<div page-model="@Model.PageInfo" page-action="Index"></div>
+
+
+
