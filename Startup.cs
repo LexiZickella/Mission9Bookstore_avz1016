@@ -38,6 +38,11 @@ namespace Mission9Bookstore_avz1016
             });
 
             services.AddScoped<IBookstoreRepository,EFBookstoreRepository>();
+            
+            services.AddRazorPages();
+
+            services.AddDistributedMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,13 +55,28 @@ namespace Mission9Bookstore_avz1016
 
             //Corresponds to the wwwroot folder
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute("typepage",
+                    "{booktype}/Page{pageNum}",
+                    new { Controller = "Home", Action = "Index" });
+
+                endpoints.MapControllerRoute(
+                    name: "Paging",
+                    pattern: "Page{pageNum}",
+                    defaults: new { Controller = "Home", Action = "Index", pageNum = 1 });
+
+                endpoints.MapControllerRoute("type",
+                    "{bookType}",
+                    new { Controller = "Home", Action = "Index", pageNum = 1 });
+
                 // got to default controller route 
                 endpoints.MapDefaultControllerRoute();
+                // able to use Razor Pages
+                endpoints.MapRazorPages();
             });
         }
     }

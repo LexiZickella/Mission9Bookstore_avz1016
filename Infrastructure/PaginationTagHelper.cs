@@ -30,6 +30,14 @@ namespace Mission9Bookstore_avz1016.Infrastructure
         public PageInfo PageModel { get; set; }
         // String for the for loop below
         public string PageAction { get; set; }
+        // String to get the page class to set the page helpers as buttons for user-ability 
+        public string PageClass { get; set; }
+        // enable pages t/f
+        public bool PageClassesEnabled { get; set; }
+        // if it is normal
+        public string PageClassNormal { get; set; }
+        // if the page is selected
+        public string PageClassSelected { get; set; }
 
         // override 
         public override void Process (TagHelperContext thc, TagHelperOutput tho)
@@ -38,11 +46,18 @@ namespace Mission9Bookstore_avz1016.Infrastructure
 
             TagBuilder final = new TagBuilder("div");
 
-            for (int i = 1; i < PageModel.TotalPages; i++)
+            for (int i = 1; i <= PageModel.TotalPages; i++)
             {
                 TagBuilder tb = new TagBuilder("a");
 
                 tb.Attributes["href"] = uh.Action(PageAction, new { pageNum = i });
+
+                if(PageClassesEnabled)
+                {
+                    tb.AddCssClass(PageClass);
+                    tb.AddCssClass(i == PageModel.CurrentPage ? PageClassSelected : PageClassNormal);
+                }
+                tb.AddCssClass(PageClass);
                 tb.InnerHtml.Append(i.ToString());
 
                 final.InnerHtml.AppendHtml(tb);
