@@ -20,6 +20,7 @@ namespace Mission9Bookstore_avz1016.Models
         }
 
         public DbSet<Book> Books { get; set; }
+        public DbSet<Checkout> Checkouts { get; set; }
 
     }
 }

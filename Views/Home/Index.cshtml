@@ -4,20 +4,6 @@
 @* the View from the home controller *@
 @model BooksViewModel
 @* accessing the Books from the View in the HomeController *@
-@*<table class="table table-bordered table-striped">
-    <thead class="font-weight-bold">
-        <tr>
-            <td>Title</td>
-            <td>Author</td>
-            <td>Classification</td>
-            <td>Category</td>
-            <td>Price</td>
-            <td>Page Count</td>
-            <td>Publisher</td>
-            <td>ISBN</td>
-        </tr>
-    </thead>*@
-@* below used a </tbody> to be in table format, but no longer needed because we are using the card format *@
 
 @foreach (Book b in Model.Books)
 {
@@ -25,12 +11,10 @@
     <partial name="BookSummary" model="b" />
 }
 
-
 @* passing pageinfo part of the View from the HomeController in the tag-helper section to build a pagination for me *@
 <div page-model="@Model.PageInfo" page-action="Index" page-class="btn"
      page-class-normal="btn-outline-dark" page-class-selected="btn-info"
      page-classes-enabled="true"
      class="btn-group pull-right m-1"></div>
-
 
 
